@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Nosso Álbum ❤️</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Allura&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cream: #f7f3ed;
+      --white: #fff;
+      --dark: #191817;
+      --text: #292725;
+      --muted: #817b73;
+      --border: #e4dfd7;
+    }
+
+    body {
+      font-family: "Inter", sans-serif;
+      background: var(--cream);
+      color: var(--text);
+    }
+
+    /* =========================
+       NAVBAR
+    ========================= */
+
+    header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 10;
+      color: white;
+      padding: 20px 7%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(
+        rgba(0,0,0,.55),
+        rgba(0,0,0,0)
+      );
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-family: "Allura", cursive;
+      font-size: 32px;
+    }
+
+    .heart {
+      font-family: Arial;
+      font-size: 29px;
+    }
+
+    nav {
+      display: flex;
+      gap: 35px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 13px;
+      opacity: .9;
+      position: relative;
+    }
+
+    nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -9px;
+      width: 100%;
+      height: 1px;
+      background: white;
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 22px;
+      font-size: 22px;
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      min-height: 520px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 100px 7%;
+      color: white;
+      background:
+        linear-gradient(
+          90deg,
+          rgba(0,0,0,.65),
+          rgba(0,0,0,.08)
+        ),
+        url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2000&q=85")
+        center/cover;
+    }
+
+    .hero-content {
+      max-width: 570px;
+    }
+
+    .eyebrow {
+      letter-spacing: 5px;
+      font-size: 11px;
+      font-weight: 500;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: clamp(48px, 6vw, 75px);
+      font-weight: 500;
+      line-height: .95;
+      margin-bottom: 25px;
+    }
+
+    .hero p {
+      max-width: 470px;
+      line-height: 1.7;
+      font-size: 15px;
+      color: #eee;
+    }
+
+    .script {
+      font-family: "Allura", cursive;
+      font-size: 31px;
+      margin-top: 20px;
+    }
+
+    /* =========================
+       CONTAINER
+    ========================= */
+
+    .container {
+      width: min(1250px, 86%);
+      margin: auto;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 34px;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .view-all {
+      color: var(--text);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    /* =========================
+       ALBUMS
+    ========================= */
+
+    .albums {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+    }
+
+    .album {
+      position: relative;
+      height: 270px;
+      border-radius: 5px;
+      overflow: hidden;
+      cursor: pointer;
+      color: white;
+    }
+
+    .album img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+
+    .album:hover img {
+      transform: scale(1.06);
+    }
+
+    .album::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        transparent 35%,
+        rgba(0,0,0,.8)
+      );
+    }
+
+    .album-info {
+      position: absolute;
+      z-index: 2;
+      bottom: 18px;
+      left: 17px;
+    }
+
+    .album-info h3 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .album-info span {
+      font-size: 11px;
+      opacity: .9;
+    }
+
+    /* =========================
+       GALLERY
+    ========================= */
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 155px;
+      gap: 7px;
+    }
+
+    .photo {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    .photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .45s ease;
+    }
+
+    .photo:hover img {
+      transform: scale(1.05);
+    }
+
+    .photo:nth-child(3) {
+      grid-row: span 2;
+    }
+
+    .photo:nth-child(5) {
+      grid-column: span 2;
+    }
+
+    .photo:nth-child(8) {
+      grid-row: span 2;
+    }
+
+    /* =========================
+       LIGHTBOX
+    ========================= */
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,10,.94);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 80vw;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 3px;
+    }
+
+    .close {
+      position: absolute;
+      right: 30px;
+      top: 25px;
+      color: white;
+      background: none;
+      border: 0;
+      font-size: 32px;
+      cursor: pointer;
+    }
+
+    .prev,
+    .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: white;
+      background: none;
+      border: none;
+      font-size: 40px;
+      cursor: pointer;
+      padding: 20px;
+    }
+
+    .prev {
+      left: 25px;
+    }
+
+    .next {
+      right: 25px;
+    }
+
+    .counter {
+      position: absolute;
+      bottom: 25px;
+      left: 35px;
+      color: white;
+      font-size: 13px;
+    }
+
+    .lightbox-actions {
+      position: absolute;
+      bottom: 22px;
+      right: 35px;
+      display: flex;
+      gap: 20px;
+      color: white;
+      font-size: 21px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 35px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    footer .logo {
+      font-size: 27px;
+    }
+
+    .footer-message {
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.7;
+      color: #ccc;
+    }
+
+    .socials {
+      display: flex;
+      gap: 15px;
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+      nav {
+        display: none;
+      }
+
+      .albums {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .album:last-child {
+        display: none;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .photo:nth-child(5) {
+        grid-column: span 1;
+      }
+
+      .hero {
+        min-height: 600px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      header {
+        padding: 18px 5%;
+      }
+
+      .logo {
+        font-size: 27px;
+      }
+
+      .hero {
+        min-height: 570px;
+        padding: 100px 7% 70px;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .albums {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .album {
+        height: 220px;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: 130px;
+      }
+
+      .section-header {
+        align-items: start;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 25px;
+        text-align: center;
+      }
+
+      .lightbox img {
+        max-width: 92vw;
+      }
+
+      .prev {
+        left: 0;
+      }
+
+      .next {
+        right: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVBAR
+  ========================== -->
+
+  <header>
+
+    <div class="logo">
+      <span class="heart">♡</span>
+      Nosso Álbum
+    </div>
+
+    <nav>
+      <a href="#" class="active">Início</a>
+      <a href="#albuns">Álbuns</a>
+      <a href="#momentos">Sobre nós</a>
+      <a href="#favoritos">Favoritos</a>
+    </nav>
+
+    <div class="nav-icons">
+      <span>⌕</span>
+      <span>♡</span>
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero">
+
+    <div class="hero-content">
+
+      <div class="eyebrow">
+        NOSSO ÁLBUM DE FOTOS
+      </div>
+
+    
+
+    
+
+      <div class="script">
+        Você e eu, sempre.
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       ÁLBUNS
+  ========================== -->
+
+  <section id="albuns">
+
+    <div class="container">
+
+      <div class="section-header">
+
+        <div>
+          <h2 class="section-title">
+            Nossos Álbuns
+          </h2>
+
+          <p class="section-subtitle">
+            Reviva cada fase da nossa história.
+          </p>
+        </div>
+
+        <a href="#" class="view-all">
+          Ver todos os álbuns →
+        </a>
+
+      </div>
+
+
+      <div class="albums">
+
+        <div class="album">
+          <img src="edy.jpg">
+
+          <div class="album-info">
+            
+            <span></span>
+          </div>
+        </div>
+
+
+        <div class="album">
+          <img src="mulherdele.jpg">
+
+          <div class="album-info">
+            <h3>você é a minha alegria</h3>
+            <span></span>
+          </div>
+        </div>
+
+
+        <div class="album">
+          <img src="edy2.jpg">
+
+          <div class="album-info">
+            <h3></h3>
+            <span></span>
+          </div>
+        </div>
+
+
+        <div class="album">
+          <img src="mul.jpg">
+
+          <div class="album-info">
+            <h3>você é a minha aventura 😏</h3>
+            <span></span>
+          </div>
+        </div>
+
+
+        <div class="album">
+          <img src="IMG-20260924-WA0113.jpg">
+
+          <div class="album-info">
+            <h3>Nosso futuro</h3>
+            <span>24 fotos</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       GALERIA
+  ========================== -->
+
+  <section id="momentos">
+
+    <div class="container">
+
+      <div class="section-header">
+
+        <div>
+          <h2 class="section-title">
+            Momentos recentes
+          </h2>
+
+          <p class="section-subtitle">
+            Pequenos momentos que queremos guardar para sempre.
+          </p>
+        </div>
+
+        <a href="#" class="view-all">
+          Ver galeria completa →
+        </a>
+
+      </div>
+
+
+      <div class="gallery" id="gallery">
+
+        <div class="photo">
+          <img src="IMG-20260924-WA0113.jpg">
+        </div>
+
+        <div class="photo">
+          <img src="mulherdele.jpg">
+        </div>
+
+        <div class="photo">
+          <img src="lllk.jpg">
+        </div>
+
+        <div class="photo">
+          <img src="g.jpg">
+        </div>
+
+        <div class="photo">
+          <img src="mul.jpg">
+        </div>
+
+        <div class="photo">
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80">
+        </div>
+
+        <div class="photo">
+          <img src="edy.jpg">
+        </div>
+
+        <div class="photo">
+          <img src="IMG-20260924-WA0110(1).jpg">
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================== -->
+
+  <footer>
+
+    <div class="logo">
+      <span class="heart">♡</span>
+      Nosso Álbum
+    </div>
+
+    <div class="footer-message">
+      Algumas pessoas tornam a vida mais bonita.<br>
+      Você é uma delas. ♡
+    </div>
+
+    <div class="socials">
+      <span>◎</span>
+      <span>◉</span>
+      <span>↗</span>
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       LIGHTBOX
+  ========================== -->
+
+  <div class="lightbox" id="lightbox">
+
+    <button class="close" id="close">
+      ×
+    </button>
+
+    <button class="prev" id="prev">
+      ‹
+    </button>
+
+    <img id="lightboxImage" src="" alt="Foto">
+
+    <button class="next" id="next">
+      ›
+    </button>
+
+    <div class="counter" id="counter">
+      1 / 8
+    </div>
+
+    <div class="lightbox-actions">
+      <span>♡</span>
+      <span>↓</span>
+      <span>⛶</span>
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+
+    const photos = [
+      "https://images.unsplash.com/photo-1529337366430-2d4e4c9f2d6f?auto=format&fit=crop&w=1200&q=85",
+
+      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1200&q=85",
+
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1200&q=85",
+
+      "https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=85",
+
+      "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=1200&q=85",
+
+      "https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=1200&q=85",
+
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=85",
+
+      "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85"
+    ];
+
+
+    const galleryPhotos =
+      document.querySelectorAll(".photo");
+
+    const lightbox =
+      document.getElementById("lightbox");
+
+    const lightboxImage =
+      document.getElementById("lightboxImage");
+
+    const counter =
+      document.getElementById("counter");
+
+    const close =
+      document.getElementById("close");
+
+    const prev =
+      document.getElementById("prev");
+
+    const next =
+      document.getElementById("next");
+
+
+    let currentIndex = 0;
+
+
+    function openLightbox(index) {
+
+      currentIndex = index;
+
+      lightboxImage.src =
+        photos[currentIndex];
+
+      counter.textContent =
+        `${currentIndex + 1} / ${photos.length}`;
+
+      lightbox.classList.add("open");
+
+      document.body.style.overflow = "hidden";
+    }
+
+
+    function closeLightbox() {
+
+      lightbox.classList.remove("open");
+
+      document.body.style.overflow = "";
+    }
+
+
+    function showNext() {
+
+      currentIndex =
+        (currentIndex + 1) % photos.length;
+
+      lightboxImage.src =
+        photos[currentIndex];
+
+      counter.textContent =
+        `${currentIndex + 1} / ${photos.length}`;
+    }
+
+
+    function showPrevious() {
+
+      currentIndex =
+        (currentIndex - 1 + photos.length)
+        % photos.length;
+
+      lightboxImage.src =
+        photos[currentIndex];
+
+      counter.textContent =
+        `${currentIndex + 1} / ${photos.length}`;
+    }
+
+
+    galleryPhotos.forEach((photo, index) => {
+
+      photo.addEventListener("click", () => {
+        openLightbox(index);
+      });
+
+    });
+
+
+    close.addEventListener(
+      "click",
+      closeLightbox
+    );
+
+
+    next.addEventListener(
+      "click",
+      showNext
+    );
+
+
+    prev.addEventListener(
+      "click",
+      showPrevious
+    );
+
+
+    lightbox.addEventListener(
+      "click",
+      (event) => {
+
+        if (event.target === lightbox) {
+          closeLightbox();
+        }
+
+      }
+    );
+
+
+    document.addEventListener(
+      "keydown",
+      (event) => {
+
+        if (!lightbox.classList.contains("open"))
+          return;
+
+        if (event.key === "Escape")
+          closeLightbox();
+
+        if (event.key === "ArrowRight")
+          showNext();
+
+        if (event.key === "ArrowLeft")
+          showPrevious();
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
